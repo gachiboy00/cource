@@ -20,3 +20,15 @@ C:\Users\User\Desktop\Полезное\course\obj\Debug\course.csproj.GenerateRe
 C:\Users\User\Desktop\Полезное\course\obj\Debug\course.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\Полезное\course\obj\Debug\course.exe
 C:\Users\User\Desktop\Полезное\course\obj\Debug\course.pdb
+C:\Users\acer\Source\Repos\cource\bin\Debug\course.exe.config
+C:\Users\acer\Source\Repos\cource\bin\Debug\course.exe
+C:\Users\acer\Source\Repos\cource\bin\Debug\course.pdb
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.csproj.AssemblyReference.cache
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.csproj.SuggestedBindingRedirects.cache
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.Form1.resources
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.Properties.Resources.resources
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.csproj.GenerateResource.cache
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.csproj.CoreCompileInputs.cache
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.exe
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.pdb
+C:\Users\acer\Source\Repos\cource\obj\Debug\course.PropsForm.resources
