@@ -46,11 +46,19 @@ namespace course
             byte[] ip2Bytes = ip2Address.GetAddressBytes();
             byte[] maskBytes = maskAddress.GetAddressBytes();
 
-            for (int i = 0; i < 4; i++) 
-                if ((ip1Bytes[i] & maskBytes[i]) != (ip2Bytes[i] & maskBytes[i])) 
+            bool f = false;
+
+            for (int i = 0; i < 2; ++i)
+                if (ip1Bytes[i] != ip2Bytes[i]) 
                     return false;
-                
-            return true;
+            
+            
+            for (int i = 2; i < 4; ++i)
+            {
+                f = f || ip1Bytes[i] != ip2Bytes[i];
+            }
+    
+            return f;
         }
 
         public bool CheckValidIP(string ipAddressString) => IPAddress.TryParse(ipAddressString, out IPAddress ipAddress);

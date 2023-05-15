@@ -25,7 +25,7 @@ namespace course
         {
             InitializeComponent();
 
-            this._timer = new System.Timers.Timer(5000);
+            this._timer = new System.Timers.Timer(1000);
             this._timer.Elapsed += TimerElapsed;
             _timer.AutoReset = true;
             _timer.Enabled = true;
@@ -216,8 +216,15 @@ namespace course
                 NetworkButton button2 = GetButtonById(index2);
                 if (button != null && button2 != null)
                 {
-                    button.ConnectWithButton(button2);
-                    button2.ConnectWithButton(button);
+                    if (button.IsInSameNetwork(button2))
+                    {
+                        button.ConnectWithButton(button2);
+                        button2.ConnectWithButton(button);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Проверьте IP или MAC-адрес оборудования");
+                    }
                 }
                 else
                 {
