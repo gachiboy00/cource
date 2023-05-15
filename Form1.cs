@@ -35,18 +35,64 @@ namespace course
         {
             BeginInvoke((Action)(() =>
             {
-                // Update the UI controls here
-                //foreach (var obj in this.Controls)
-                //{
-                //    if (obj is NetworkButton)
-                //    {
-                //        foreach (int id in (obj as NetworkButton)._connection_with_buttons)
-                //        {
-                //            NetworkButton networkButton = GetButtonById(id);
-                //            // int x1
-                //        }
-                //    }
-                //}
+                using (Graphics g = this.CreateGraphics())
+                {
+                    g.Clear(Form1.DefaultBackColor);
+                }
+                foreach (var obj in this.Controls)
+                {
+                   if (obj is NetworkButton)
+                   {
+                       int x = (obj as NetworkButton).Location.X + (obj as NetworkButton).Width / 2;
+                       int y = (obj as NetworkButton).Location.Y + (obj as NetworkButton).Height / 2;
+                        foreach (int id in (obj as NetworkButton)._connection_with_buttons)
+                       {
+                            NetworkButton networkButton = GetButtonById(id);
+                            int x1 = networkButton.Location.X + networkButton.Width / 2;
+                            int y1 = networkButton.Location.Y + networkButton.Height / 2;
+
+                            using (Graphics g = this.CreateGraphics())
+                            {
+                                if (radioButton1.Checked)
+                                {
+                                    // Создаем объект Pen со стилем Solid и цветом Black
+                                    using (Pen pen = new Pen(Color.Black, 3.0f))
+                                    {
+                                        pen.DashStyle = DashStyle.Solid;
+                                        g.DrawLine(pen, x1, y1, x, y);
+                                    }
+                                }
+                                if (radioButton2.Checked)
+                                {
+                                    // Создаем объект Pen со стилем Dot и цветом Black
+                                    using (Pen pen = new Pen(Color.Black, 3.0f))
+                                    {
+                                        pen.DashStyle = DashStyle.Dot;
+                                        g.DrawLine(pen, x1, y1, x, y);
+                                    }
+                                }
+                                if (radioButton3.Checked)
+                                {
+                                    // Создаем объект Pen со стилем DashDot и цветом Black
+                                    using (Pen pen = new Pen(Color.Black, 3.0f))
+                                    {
+                                        pen.DashStyle = DashStyle.DashDot;
+                                        g.DrawLine(pen, x1, y1, x, y);
+                                    }
+                                }
+                                if (radioButton4.Checked)
+                                {
+                                    // Создаем объект Pen со стилем DashDotDot и цветом Black
+                                    using (Pen pen = new Pen(Color.Black, 3.0f))
+                                    {
+                                        pen.DashStyle = DashStyle.DashDotDot;
+                                        g.DrawLine(pen, x1, y1, x, y);
+                                    }
+                                }
+                            }
+                        }
+                   }
+                }
             }));
         }
 
@@ -112,7 +158,6 @@ namespace course
                 int deltaX = e.X - _lastMousePos.X;
                 int deltaY = e.Y - _lastMousePos.Y;
 
-
                 for (int i = 0; i < this.Controls.Count; ++i)
                 {
                     if (sender == this.Controls[i])
@@ -165,69 +210,19 @@ namespace course
         
         private void conbtn_Click(object sender, EventArgs e)
         {
-            
             if (int.TryParse(textBox1.Text, out int index1) && int.TryParse(textBox2.Text, out int index2))
             {
-                // Проверяем, что индексы действительно представляют существующие контролы на форме
-                if (index1 >= 0 && index1 < this.Controls.Count && index2 >= 0 && index2 < this.Controls.Count)
+                NetworkButton button = GetButtonById(index1);
+                NetworkButton button2 = GetButtonById(index2);
+                if (button != null && button2 != null)
                 {
-                    // Получаем координаты первой кнопки
-                    int x1 = this.Controls[index1].Location.X + this.Controls[index1].Width / 2;
-                    int y1 = this.Controls[index1].Location.Y + this.Controls[index1].Height / 2;
-
-                    // Получаем координаты второй кнопки
-                    int x2 = this.Controls[index2].Location.X + this.Controls[index2].Width / 2;
-                    int y2 = this.Controls[index2].Location.Y + this.Controls[index2].Height / 2;
-
-                    // Создаем поверхность для рисования
-                    using (Graphics g = this.CreateGraphics())
-                    {
-                        if (radioButton1.Checked)
-                        {
-                            // Создаем объект Pen со стилем Solid и цветом Black
-                            using (Pen pen = new Pen(Color.Black,3.0f))
-                            {
-                                pen.DashStyle= DashStyle.Solid;
-                                g.DrawLine(pen, x1, y1, x2, y2);
-                            }
-                        }
-                        if (radioButton2.Checked)
-                        {
-                            // Создаем объект Pen со стилем Dot и цветом Black
-                            using (Pen pen = new Pen(Color.Black, 3.0f))
-                            {
-                                pen.DashStyle = DashStyle.Dot;
-                                g.DrawLine(pen, x1, y1, x2, y2);
-                            }
-                        }
-                        if (radioButton3.Checked)
-                        {
-                            // Создаем объект Pen со стилем DashDot и цветом Black
-                            using (Pen pen = new Pen(Color.Black, 3.0f))
-                            {
-                                pen.DashStyle = DashStyle.DashDot;
-                                g.DrawLine(pen, x1, y1, x2, y2);
-                            }
-                        }
-                        if (radioButton4.Checked)
-                        {
-                            // Создаем объект Pen со стилем DashDotDot и цветом Black
-                            using (Pen pen = new Pen(Color.Black, 3.0f))
-                            {
-                                pen.DashStyle = DashStyle.DashDotDot;
-                                g.DrawLine(pen, x1, y1, x2, y2);
-                            }
-                        }
-                    }
+                    button.ConnectWithButton(button2);
+                    button2.ConnectWithButton(button);
                 }
                 else
                 {
-                    MessageBox.Show("Неверный индекс контрола.");
+                    MessageBox.Show("Введите корректный индекс контрола.");
                 }
-            }
-            else
-            {
-                MessageBox.Show("Введите корректный индекс контрола.");
             }
         }
     }
