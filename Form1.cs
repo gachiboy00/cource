@@ -214,15 +214,15 @@ namespace course
             {
                 NetworkButton button = GetButtonById(index1);
                 NetworkButton button2 = GetButtonById(index2);
-                if (button != null)
+                if (button != null && button2 != null)
                 {
                     button.ConnectWithButton(button2);
                     button2.ConnectWithButton(button);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Введите корректный индекс контрола.");
+                else
+                {
+                    MessageBox.Show("Введите корректный индекс контрола.");
+                }
             }
         }
     }
