@@ -29,6 +29,7 @@ namespace course
             ImageAlign = ContentAlignment.TopCenter;
             Text = Id.ToString();
             TextAlign = ContentAlignment.BottomCenter;
+
         }
 
         public void ChangeIP(string ip) => this.IP = ip; 

@@ -14,12 +14,23 @@ namespace course
     {
         internal NetworkButton networkButton;
 
-        internal PropsForm(NetworkButton networkButton)
+        internal PropsForm(NetworkButton networkButton, Control.ControlCollection control)
         {
+            
             InitializeComponent();
             this.networkButton = networkButton;
             ipTextBox.Text = this.networkButton.IP;
             macTextBox.Text = this.networkButton.MAC;
+
+            if (networkButton is ButtonServer)
+            {
+                Console.WriteLine("Hello World");
+                Button bt = new Button();
+                bt.Text = "Generate IP";
+                bt.Location = new Point(buttonSave.Location.X, buttonSave.Location.Y + buttonSave.Height + 10);
+
+                this.Controls.Add(bt);
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
