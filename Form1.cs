@@ -186,7 +186,13 @@ namespace course
                 // Added event Click for "Properties" in item0
                 item0.Click += (s, ev) =>
                 {
-                    PropsForm propertiesForm = new PropsForm(sender as NetworkButton, this.Controls);
+                    List<NetworkButton> buttons = new List<NetworkButton>();
+                    foreach (int id in (sender as NetworkButton)._connection_with_buttons)
+                    {
+                        NetworkButton networkButton = GetButtonById(id);
+                        buttons.Add(networkButton);
+                    }
+                    PropsForm propertiesForm = new PropsForm(sender as NetworkButton, buttons);
                     propertiesForm.ShowDialog();
                 };
 
@@ -222,14 +228,11 @@ namespace course
                         button2.ConnectWithButton(button);
                     }
                     else
-                    {
                         MessageBox.Show("Проверьте IP или MAC-адрес оборудования");
-                    }
                 }
-                else
-                {
+                else 
                     MessageBox.Show("Введите корректный индекс контрола.");
-                }
+                
             }
         }
     }

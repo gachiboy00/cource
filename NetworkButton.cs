@@ -29,7 +29,6 @@ namespace course
             ImageAlign = ContentAlignment.TopCenter;
             Text = Id.ToString();
             TextAlign = ContentAlignment.BottomCenter;
-
         }
 
         public void ChangeIP(string ip) => this.IP = ip; 
@@ -53,12 +52,9 @@ namespace course
                 if (ip1Bytes[i] != ip2Bytes[i]) 
                     return false;
             
-            
             for (int i = 2; i < 4; ++i)
-            {
                 f = f || ip1Bytes[i] != ip2Bytes[i];
-            }
-    
+            
             return f;
         }
 
@@ -66,7 +62,33 @@ namespace course
 
         public void ConnectWithButton(NetworkButton button) => _connection_with_buttons.Add(button.Id);
         public void DisconnectWithButton(NetworkButton button) => _connection_with_buttons.Remove(button.Id); 
-        public void RemoveAllConnection() => _connection_with_buttons.Clear(); 
+        public void RemoveAllConnection() => _connection_with_buttons.Clear();
 
+        public void IPGenerationBasedOnCurrent(List<NetworkButton> networkButtons)
+        {
+            IPAddress ipAddress = IPAddress.Parse(this.IP);
+            Byte[] bytes = ipAddress.GetAddressBytes();
+            byte counter = bytes[3];
+            foreach (NetworkButton button in networkButtons)
+            {
+                button.MAC = this.MAC;
+                counter++;
+                if (bytes[3] >= 255)
+                {
+                    bytes[3] = 0;
+                    if (bytes[2] >= 255)
+                    {
+                        bytes[2] = 0;
+                        bytes[1]++;
+                    }
+                    else
+                        bytes[2]++;
+                }
+                bytes[3] = counter;
+
+                string result = string.Join(".", bytes.Select(x => x.ToString()));                
+                button.IP = result;
+            }
+        }
     }
 }
