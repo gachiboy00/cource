@@ -186,7 +186,7 @@ namespace course
                 // Added event Click for "Properties" in item0
                 item0.Click += (s, ev) =>
                 {
-                    PropsForm propertiesForm = new PropsForm(sender as NetworkButton);
+                    PropsForm propertiesForm = new PropsForm(sender as NetworkButton, this.Controls);
                     propertiesForm.ShowDialog();
                 };
 

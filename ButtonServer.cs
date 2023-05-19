@@ -13,5 +13,15 @@ namespace course
         {
             Image = course.Properties.Resources.server;
         }
+
+        public void GenerateIP()
+        {
+            this.IP = "192.168.0.0";
+            int l = 1;
+            foreach (int id in this._connection_with_buttons)
+            {
+                
+            }
+        }
     }
 }
