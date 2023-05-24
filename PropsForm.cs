@@ -21,7 +21,8 @@ namespace course
             InitializeComponent();
             this.networkButton = networkButton;
             ipTextBox.Text = this.networkButton.IP;
-            macTextBox.Text = this.networkButton.MAC;
+            netmaskTextBox.Text = this.networkButton.NetMask;
+            macTextBox.Text = this.networkButton.MAC; 
 
             if (networkButton is ButtonServer)
             {
@@ -39,15 +40,23 @@ namespace course
         private void buttonSave_Click(object sender, EventArgs e)
         {
             var validIP = networkButton.CheckValidIP(ipTextBox.Text);
-            var validMAC = networkButton.CheckValidIP(macTextBox.Text);
+            var validMAC = networkButton.CheckValidIP(netmaskTextBox.Text);
 
             if (!validIP || !validMAC)
             {
-                MessageBox.Show(!validIP ? "Не верно введенный IP-адрес!" : "Не верно введенный MAC-адрес!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(!validIP ? "Не верно введенный IP-адрес!" : "Не верно введенна маска сети!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            
+            if (!networkButton.CheckValidMACAddress(macTextBox.Text))
+            {
+                MessageBox.Show("Не верно введеный MAC-адрес", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+
             this.networkButton.IP = ipTextBox.Text;
+            this.networkButton.NetMask = netmaskTextBox.Text;
             this.networkButton.MAC = macTextBox.Text;
         }
 
